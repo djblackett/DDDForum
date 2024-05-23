@@ -135,7 +135,6 @@ app.post("/users/new", async (req, res) => {
     }
   } catch (e) {
     console.error(e);
-    // console.error(typeof e.meta.target);
 
     if (e instanceof PrismaClientKnownRequestError) {
       if (

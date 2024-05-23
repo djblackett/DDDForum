@@ -2,17 +2,8 @@ import './App.css'
 import {Link, Outlet, useLocation} from "react-router-dom";
 import {useState} from "react";
 
-// type User = {
-//     id: number,
-//     email: string,
-//     username: string,
-//     firstName: string,
-//     lastName: string
-// }
-
-
 function App() {
-    const [user, setUser] = useState("Mr. Dude");
+    const [user, setUser] = useState("");
     const route = useLocation();
 
     const logout = () => {
@@ -21,7 +12,7 @@ function App() {
 
     return (
       <>
-          <div id="root">
+          <div id="main">
               <header id="header" className="flex align-center">
                   <div id="app-logo">
                       <img src="dddforumlogo.png" alt={"DDD Forum Logo"}/>
@@ -29,7 +20,7 @@ function App() {
                   <div id="title-container">
                       <h1>Domain-Driven Designers</h1>
                       <h3>Where awesome domain driven designers are made</h3>
-                      <button className={"button"}>submit</button>
+                      <a>submit</a>
                   </div>
                   {route.pathname !== "/register" && !user && <div id="header-action-button">
                       <Link to={"register"}><button className={"button"}>Join</button></Link>

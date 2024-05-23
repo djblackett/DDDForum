@@ -61,7 +61,9 @@ function Register() {
         const firstNameInput = document.getElementById('first-name') as HTMLInputElement | null;
         const lastNameInput = document.getElementById('last-name') as HTMLInputElement | null;
 
-        if (usernameInput && emailInput && firstNameInput && lastNameInput) {
+        console.log(usernameInput)
+        if (usernameInput && emailInput && firstNameInput && lastNameInput &&
+            usernameInput.value && emailInput.value && firstNameInput.value && lastNameInput.value) {
             const payload: UserPayload = {
                 username: usernameInput.value,
                 email: emailInput.value,
@@ -73,6 +75,7 @@ function Register() {
             await createUser(payload);
         } else {
             console.error('One or more form fields are missing.');
+            toast.error('One or more form fields are missing.');
         }
     };
 
@@ -119,7 +122,7 @@ function Register() {
                         <div>
                             <div className="to-login">
                                 <div>Already have an account?</div>
-                                <a href="/login">Login</a>
+                                <a>Login</a>
                             </div>
                             <button className="submit-button button" type="submit" onClick={handleSubmit}>Submit</button>
                         </div>

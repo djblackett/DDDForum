@@ -82,19 +82,16 @@ function Posts() {
 
     return (
         <>
-        <div className="content-container flex align-center">
+        <div className="content-container flex">
             <div className="posts-view-switcher flex">
                <div id="popular" className="active" onClick={() => handleClick("popular")}>Popular</div>
               <div id="recent" className="" onClick={() => handleClick("recent")}>New</div>
             </div>
         </div>
-
-
             <div className="posts-list">
                 {isDataLoading && <Loader />}
             {posts && posts.map(post => <Post post={post}/>)}
         </div>
-
         </>
     )
 }
