@@ -1,16 +1,24 @@
 import express from "express";
 import dotenv from "dotenv";
 import generator from "generate-password";
-import { PrismaClient } from "@prisma/client";
-import { createUser, editUser, getAllUsers, getUser } from "./db";
+import { Post, PrismaClient } from "@prisma/client";
+import { createUser, editUser, getAllUsers, getPosts, getUser } from "./db";
 import {
   PrismaClientKnownRequestError,
   PrismaClientValidationError,
 } from "@prisma/client/runtime/library";
-
+import cors from "cors";
 dotenv.config();
 
 const prisma = new PrismaClient();
+
+const getVoteCount = (post) => {
+  const upVotesCount = post.votes.filter(
+    (vote) => vote.voteType === "Upvote"
+  ).length;
+  const downVotesCount = post.votes.length - upVotesCount;
+  return upVotesCount - downVotesCount + 1;
+};
 
 async function main() {
   await prisma.$connect();
@@ -29,7 +37,7 @@ main()
 
 const app = express();
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 const port = process.env.PORT;
 
 app.get("/", (req: any, res: { send: (arg0: string) => void }) => {
@@ -72,6 +80,23 @@ app.get("/users", async (req, res) => {
       .status(500)
       .json({ error: "ServerError", data: undefined, success: false });
   }
+});
+
+app.get("/posts", async (req, res) => {
+  const params = req.query;
+  let posts = await getPosts();
+  if (params.sort === "recent") {
+    posts = posts.sort(
+      (firstItem: Post, secondItem: Post) =>
+        firstItem.dateCreated.getUTCDate() - secondItem.dateCreated.getUTCDate()
+    );
+  } else {
+    posts = posts.sort(
+      (firstItem: Post, secondItem: Post) =>
+        getVoteCount(secondItem) - getVoteCount(firstItem)
+    );
+  }
+  res.json(posts);
 });
 
 app.post("/users/new", async (req, res) => {

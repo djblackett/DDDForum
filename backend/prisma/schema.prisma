@@ -17,4 +17,54 @@ model User {
   firstName String
   lastName  String
   password  String
+
+  // memberId String? @unique
+  Member Member?
+}
+
+model Member {
+  id       String    @id @default(uuid())
+  posts    Post[]
+  votes    Vote[]
+  comments Comment[]
+  user     User      @relation(fields: [userId], references: [id])
+  userId   Int       @unique
+}
+
+model Post {
+  id             String    @id @default(uuid())
+  title          String
+  memberPostedBy Member    @relation(fields: [memberId], references: [id])
+  content        String
+  postType       String
+  comments       Comment[]
+  memberId       String
+  votes          Vote[]
+  dateCreated    DateTime  @default(now())
+}
+
+model Comment {
+  id String @id @default(uuid())
+
+  post   Post?   @relation(fields: [postId], references: [id])
+  postId String?
+  text   String
+
+  Member   Member? @relation(fields: [memberId], references: [id])
+  memberId String?
+
+  parentCommentId String?
+  parentComment   Comment?  @relation("Replies", fields: [parentCommentId], references: [id])
+  replyComments   Comment[] @relation("Replies")
+}
+
+model Vote {
+  id     String @id @default(uuid())
+  post   Post   @relation(fields: [postId], references: [id])
+  postId String
+
+  memberId       String
+  memberPostedBy Member @relation(fields: [memberId], references: [id])
+
+  voteType String
 }

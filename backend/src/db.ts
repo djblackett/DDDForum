@@ -51,3 +51,17 @@ export async function editUser(userId: number, body: Partial<User>) {
 export async function getAllUsers() {
   return [...(await prisma.user.findMany())];
 }
+
+export async function getPosts() {
+  return prisma.post.findMany({
+    include: {
+      comments: true,
+      votes: true,
+      memberPostedBy: {
+        include: {
+          user: true,
+        },
+      },
+    },
+  });
+}
