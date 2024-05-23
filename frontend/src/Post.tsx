@@ -10,7 +10,29 @@ function Post({post}: PostProps) {
         const downVotesCount = post.votes.length - upVotesCount;
         return upVotesCount - downVotesCount + 1;
     }
-    
+
+    const getDateFormat = (date: Date) => {
+        const timeElapsed = (Date.now() - new Date(date).getTime()) / 86400000 // # of ms in a day
+        if (timeElapsed < 1) {
+            return "today"
+        }
+        if (timeElapsed < 30) {
+            return `${Math.floor(timeElapsed)} days ago`
+        }
+        else if (timeElapsed > 365) {
+            const result = Math.floor(timeElapsed / 365)
+            if (result === 1) {
+                return `${result} year ago`
+            } else {
+                return `${result} years ago`
+            }
+        }
+        else if (timeElapsed >= 30) {
+            return `${Math.floor(timeElapsed / 30)} months ago`
+        }
+    }
+
+
     const username = post?.memberPostedBy.user.username;
     return (
         <div className="post-item">
@@ -26,7 +48,7 @@ function Post({post}: PostProps) {
     <div className="post-item-content">
         <div className="post-item-title">{post.title}</div>
         <div className="post-item-details">
-            <div>{Math.floor((Date.now() - new Date(post.dateCreated).getTime()) / 86400) } days ago</div>
+            <div>{getDateFormat(post.dateCreated)}</div>
             <a href={`/member/${username}`}> by {username} </a>
             <div>{post.comments.length} comments</div>
         </div>
