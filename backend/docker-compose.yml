@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  db-dev:
+    image: postgres:16.1
+    hostname: db-dev
+    container_name: db-dev
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+      PGUSER: postgres
+      POSTGRES_USER: postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - my_network_dev
+    volumes:
+      - pgdata-dev:/var/lib/postgresql/data
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - my_network_dev
+
+networks:
+  my_network_dev:
+    driver: bridge
+volumes:
+  pgdata-dev:
