@@ -1,0 +1,144 @@
+[
+  {
+    "schemaName": "public",
+    "tableName": "Comment",
+    "predictions": [
+      {
+        "input": "public comment id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.97538822889328,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public comment text",
+        "column": "text",
+        "shape": "POST_COMMENT",
+        "confidence": 0.9654600024223328,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "Member",
+    "predictions": [
+      {
+        "input": "public member id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.986861526966095,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "Post",
+    "predictions": [
+      {
+        "input": "public post content",
+        "column": "content",
+        "shape": "POST_BODY",
+        "confidence": 0.7429391145706177,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public post id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9969754219055176,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public post post_type",
+        "column": "postType",
+        "shape": "POST_COMMENT",
+        "confidence": 0.7839124798774719,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public post title",
+        "column": "title",
+        "shape": "POST_TITLE",
+        "confidence": 0.5458157062530518,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "User",
+    "predictions": [
+      {
+        "input": "public user email",
+        "column": "email",
+        "shape": "EMAIL",
+        "confidence": 0.99404376745224,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public user first_name",
+        "column": "firstName",
+        "shape": "PERSON_FIRST_NAME",
+        "confidence": 0.9833793044090271,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public user last_name",
+        "column": "lastName",
+        "shape": "PERSON_LAST_NAME",
+        "confidence": 0.9846183657646179,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public user password",
+        "column": "password",
+        "shape": "PASSWORD",
+        "confidence": 0.9340711236000061,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public user username",
+        "column": "username",
+        "shape": "USERNAME",
+        "confidence": 0.9716823697090149,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "public",
+    "tableName": "Vote",
+    "predictions": [
+      {
+        "input": "public vote id",
+        "column": "id",
+        "shape": "UUID",
+        "confidence": 0.9988000392913818,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      },
+      {
+        "input": "public vote vote_type",
+        "column": "voteType",
+        "shape": "SYSTEM_MIME_TYPE",
+        "confidence": 0.1268834918737411,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  }
+]
